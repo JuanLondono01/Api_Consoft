@@ -13,13 +13,13 @@ export async function loginUser(req, res) {
 
         const usuario = await Usuario.findOne({ correo }).populate('rol');
         console.log(usuario);
+        
+        if (!usuario) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
 
         if (!usuario.rol) {
             return res.status(500).json({ message: 'El usuario no tiene un rol asignado o el rol fue eliminado' });
-        }
-
-        if (!usuario) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
         if (!usuario.estado) {
