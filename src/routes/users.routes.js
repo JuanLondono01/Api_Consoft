@@ -5,12 +5,12 @@ import verifyRole from '../middlewares/verifyRole.js';
 
 const usersRouter = Router();
 
-usersRouter.route('/').get(verifyToken, verifyRole([1]), usersController.getUsers);
+usersRouter.route('/').get(verifyToken, usersController.getUsers);
 
 usersRouter
     .route('/:id')
-    .get(verifyToken, verifyRole([1, 2]), usersController.getUserById)
-    .put(verifyToken, verifyRole([1, 2]), usersController.updateUser)
-    .delete(verifyToken, verifyRole([1, 2]), usersController.deleteUser);
+    .get(verifyToken, verifyRole(['Administrador']), usersController.getUserById)
+    .put(verifyToken, verifyRole(['Administrador']), usersController.updateUser)
+    .delete(verifyToken, verifyRole(['Administrador']), usersController.deleteUser);
 
 export default usersRouter;

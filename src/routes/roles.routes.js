@@ -7,13 +7,13 @@ const rolesRouter = Router();
 
 rolesRouter
     .route('/')
-    .get(verifyToken, verifyRole([1]), rolesController.getRoles)
-    .post(verifyToken, verifyRole([1]), rolesController.createRole);
+    .get(verifyToken, verifyRole(['Administrador']), rolesController.getRoles)
+    .post(verifyToken, verifyRole(['Administrador']), rolesController.createRole);
 
 rolesRouter
     .route('/:id')
-    .get(verifyToken, verifyRole([1]), rolesController.getRoleById)
-    .put(verifyToken, verifyRole([1]), rolesController.updateRole)
-    .delete(verifyToken, verifyRole([1]), rolesController.deleteRole);
+    .get(verifyToken, verifyRole(['Administrador']), rolesController.getRoleById)
+    .put(verifyToken, verifyRole(['Administrador']), rolesController.updateRole)
+    .delete(verifyToken, verifyRole(['Administrador']), rolesController.deleteRole);
 
 export default rolesRouter;

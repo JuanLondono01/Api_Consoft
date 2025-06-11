@@ -1,5 +1,7 @@
 import bcrypt from 'bcryptjs';
 import Usuario from '../../models/Users.js';
+import mongoose from 'mongoose';
+import Roles from '../../models/Roles.js';
 
 export async function registerUser(req, res) {
     try {
@@ -8,6 +10,11 @@ export async function registerUser(req, res) {
         // Validar campos
         if (!nombre || !correo || !direccion || !telefono || !password || !rol) {
             return res.status(400).json({ message: 'Todos los campos son obligatorios' });
+        }
+
+        const rolExistente = await Roles.findById(rol);
+        if (!rolExistente) {
+            return res.status(400).json({ message: 'Rol no válido' });
         }
 
         // Verificar si el correo ya está registrado
@@ -27,13 +34,12 @@ export async function registerUser(req, res) {
             direccion,
             telefono,
             password: hashedPassword,
-            rol
+            rol: new mongoose.Types.ObjectId(rol),
         });
 
         await nuevoUsuario.save();
 
         return res.status(201).json({ ok: true, message: 'Usuario registrado correctamente' });
-
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Error del servidor' });
