@@ -1,5 +1,4 @@
 import express from 'express';
-import dotenv from 'dotenv/config';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import db from './database.js';
