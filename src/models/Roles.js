@@ -17,9 +17,9 @@ const rolesSchema = new Schema({
     fechaCreacion: {
         type: Date,
         required: false,
-        default: Date.now(),
+        default: Date.now,
     },
 });
 
 
-export default mongoose.model('Rol', rolesSchema);
+export default mongoose.model('Rol', rolesSchema, 'Rol');
